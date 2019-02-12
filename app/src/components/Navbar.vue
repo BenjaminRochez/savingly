@@ -5,7 +5,8 @@
                 <span>Saving</span>
                 <span class="font-weight-light">ly</span>
             </v-toolbar-title>
-      
+            <v-spacer></v-spacer>
+            <RecipeAdder />
         </v-toolbar>
 
         <v-navigation-drawer v-model="drawer" app  class="primary"> 
@@ -33,9 +34,10 @@
 </template>
 
 <script>
-
+import RecipeAdder from '@/components/RecipeAdder'
 export default {
     name: 'Navbar',
+    components: {RecipeAdder},
     data(){
         return{
             drawer: true,

@@ -2,7 +2,15 @@
     <div>
          <h1 class="subheading grey--text">View Recipe</h1>
             <p>Name: {{recipe.name}}</p>
-            <p>Description:  {{recipe.body}}</p>
+            <div class="summary">
+                <ul>
+                    <li>{{recipe.quantity}} Pers.</li>
+                    <li>{{recipe.preparation_time}} Min</li>
+                    <li>{{recipe.cooking_time}} Min</li>
+                    <li>{{recipe.difficulty}}</li>
+                </ul>
+            </div>
+            <p v-html="recipe.body"></p>
     </div>
 </template>
 
@@ -25,7 +33,7 @@ export default {
             axios.get(`http://127.0.0.1:8000/api/recipes/${this.recipeId}/`)
             .then(res =>{     
                 this.recipe = res.data;
-                console.log(this.recipe.name)
+                console.log(this.recipe.body)
             })
             .catch(err => {
                 // eslint-disable-next-line
