@@ -20,6 +20,7 @@ class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     pub_date = models.DateTimeField(auto_now_add=True)
     body = models.TextField(blank=True)
+    recipe_summary = models.TextField(blank=True) 
     ingredients = models.ManyToManyField(Ingredient, blank=True)
 
     quantity = models.IntegerField(default=0, blank=True)
@@ -29,7 +30,7 @@ class Recipe(models.Model):
 
     difficulty = models.CharField(max_length=10,
                                 choices=DIFFICULTY_CHOICES,
-                                default='Easy')
+                                default='Easy') 
 
     hint = models.TextField(blank=True)
     def pub_date_pretty(self):

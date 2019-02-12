@@ -10,6 +10,7 @@
                             <div class="font-weight-bold">{{recipe.name}}</div>
                             <div>{{recipe.body}}</div>
                             <router-link tag="li" :to="{name:'ViewRecipe', params: {recipe_id: recipe.id}}"> <v-btn class="warning">See the recipe</v-btn></router-link>
+                             <v-btn class="warning" @click="deleteRecipe(recipe.id)">Delete</v-btn>
                         </v-card-text>
                     </v-card>
                 </v-expansion-panel-content>
@@ -40,6 +41,17 @@ export default {
             .catch(err => {
                 // eslint-disable-next-line
                 console.log('Error: ' + err)
+            })
+        },
+        deleteRecipe(id){
+            this.loading = true;
+            axios.delete(`http://127.0.0.1:8000/api/recipes/${id}/`).then(() =>{
+                this.loading = false;
+                this.getRecipes();
+            }).catch(err =>{
+            this.loading = false;
+            // eslint-disable-next-line
+            console.log(err)
             })
         }
     },
