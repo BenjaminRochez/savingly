@@ -45,6 +45,7 @@ export default {
                 {icon: 'dashboard', text: 'Dashboard', route: '/dashboard'},
                 {icon: 'folder', text: 'Recipes', route: '/recipes'},
                 {icon: 'person', text: 'Ingredients', route: '/ingredients'},
+                {icon: 'person', text: 'Login', route: '/login'},
                 
             ],
             
