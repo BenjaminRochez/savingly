@@ -11,6 +11,16 @@
                 </ul>
             </div>
             <p v-html="recipe.body"></p>
+
+
+            <ul>
+                <li v-for="ingredient in ingredients" :key="ingredient.id">{{ingredient.name}}</li>
+            </ul>
+            {{ingredients}}
+            <h3>Price</h3>
+            <p>{{price}}</p>
+            
+
     </div>
 </template>
 
@@ -21,6 +31,9 @@ export default {
     data(){
         return{
             recipe:  [],
+            ingredientsList: [],
+            ingredients: [],
+            price: 0,
             recipeId: this.$route.params.recipe_id
         }
     },
@@ -33,20 +46,31 @@ export default {
             axios.get(`http://127.0.0.1:8000/api/recipes/${this.recipeId}/`)
             .then(res =>{     
                 this.recipe = res.data;
-                console.log(this.recipe.body)
+                this.ingredientsList = res.data.ingredients;
+                this.getIngredients();
             })
             .catch(err => {
                 // eslint-disable-next-line
                 console.log('Error: ' + err)
             })
-        }
+        },
+        getIngredients(){
+            this.ingredientsList.forEach((el) =>{
+                
+                axios.get(`http://127.0.0.1:8000/api/ingredients/${el}/`)
+                .then(res =>{
+                    this.ingredients.push(res.data);   
+                    this.price += res.data.price;
+                })            
+            })
+        },
     },
     watch: {
         $route: 'updateId',
     },
     created(){
-        this.getRecipes(this.recipeId)
-    }
+        this.getRecipes(this.recipeId);
+    },
 }
 </script>
 
